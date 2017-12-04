@@ -1,0 +1,67 @@
+body {
+    -webkit-animation-delay: 0.1s;
+    -webkit-animation-name: fontfix;
+    -webkit-animation-duration: 0.1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes fontfix {
+    from { opacity: 1; }
+    to   { opacity: 1; }
+}
+
+body {
+  background: #dfcd7e;
+  padding-bottom: 10%;
+}
+
+#Content{
+  padding-top: 5em;
+  font-size: 16pt;
+  font-family: monospace;
+}
+
+#Reflections {
+  opacity: 0;
+}
+
+#Reflections .queue {
+  padding: 0 5%;
+}
+
+#Q_Bob {
+  font-family: 'Cutive Mono', monospace;
+  font-size: 16pt;
+  font-weight: 600;
+  border-right: 1px solid gray;
+}
+
+#Q_Me {
+  font-family: 'Inconsolata', monospace;
+}
+
+.quote {
+  padding: 0 0.5em;
+  font-family: serif;
+}
+
+a {
+  cursor: default;
+  text-decoration: none;
+  color: inherit;
+}
+
+a.cursor {
+  cursor: pointer;
+}
+
+a.active {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #6e006d;
+}
+
+.blink {
+  color: #dfcd7e;
+}
