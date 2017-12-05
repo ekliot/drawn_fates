@@ -1,5 +1,5 @@
 class Card
-  constructor: (@img, @text, @alt_text) ->
+  constructor: ( @img, @text, @alt_text ) ->
     @reversed = false
     @fresh = true
 
