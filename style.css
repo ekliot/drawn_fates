@@ -1,20 +1,56 @@
 body {
-  background-color: black;
+  /*background-color: tan;*/
   color: white;
+  background-image: url(media/lined_paper_texture.jpg);
+}
+
+#Header {
+  padding: 1.5em;
+}
+
+#Draw {
+  cursor: pointer;
+}
+
+#Draw > a > img {
+  max-width: 20%;
 }
 
 .slot {
-  position: relative;
+  padding: 0.7em;
+  /*background-color: gray;*/
 }
 
-.slot > .text {
+.card {
+  position: relative;
+  border: 5px double black;
+}
+
+.card > .text {
   position: absolute;
   width: 100%;
-  height: 96%;
-  background-color: rgba(255,0,0,0.4);
+  height: 100%;
+
+  z-index: 1;
+  padding: 1em;
+
+  display: none;
 }
 
-/*.card > .profile {
-  position: relative;
-  top: 20px;
-}*/
+.card > .text:hover {
+  display: block;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.name {
+  border: 1px solid black;
+  max-width: 50%;
+  margin-top: 1em;
+}
+
+.reverse {
+  -webkit-transform: scaleY(-1);
+     -moz-transform: scaleY(-1);
+       -o-transform: scaleY(-1);
+          transform: scaleY(-1);
+}

@@ -1,1 +1,3 @@
 #!/bin/bash
+coffeescript-concat src/* -o main.coffee
+coffee -c main.coffee
