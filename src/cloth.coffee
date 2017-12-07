@@ -3,9 +3,12 @@ class Cloth
     @grave = []
     @hand  = ({ div: slot, card: null } for slot in $( "#Cloth > .slot" ))
     @wiping = false
+    @done = false
 
   draw: () ->
-    console.log "DARW :: clear is #{@cloth.css( "display" ) is "none"}"
+    if @wiping or @done
+      return
+
     unless @cloth.css( "display" ) is "none"
       @wipe()
 
@@ -14,51 +17,48 @@ class Cloth
 
     # kill each card in @hand
     for slot in @hand
-      slot.card? grave.push( slot.card.kill() )
+      if slot.card? then @grave.push slot.card.kill()
+      slot.card = null
 
-    console.log "grave after purge:"
-    console.log @grave
-    console.log "hand after purge:"
-    console.log @hand
+    console.log @deck
+
+    # if the deck is empty after purge, reshuffle the fresh corpses
+    if @is_done() then @recall()
+
+    # if the deck is still empty after a recall, there is nothing left to do
+    if @is_done()
+      @done = true
+      return
 
     # pop @hand.size cards from the @deck and push them to @hand
-    slot.card = @deck.shift() for slot in @hand
-    console.log "hand after draw:"
-    console.log @hand
+    buffer = (@deck.shift() for slot in @hand)
+    # sort the buffer by date before shifting it to the hand
+    buffer.sort( (a, b) ->
+      date_a = if a.reversed then a.date_rev else a.date_def
+      date_b = if b.reversed then b.date_rev else b.date_def
+      return date_a - date_b
+    )
+    slot.card = buffer.shift() for slot in @hand
 
     # render each card in @hand
     slot.card.load $(slot.div) for slot in @hand
 
     @wipe()
 
-  wipe: ( dur = 2000 ) ->
+  wipe: ( dur = 1750 ) ->
     @wiping = true
-    # $('#Cloth').animate({ height: 'toggle'}, dur, "linear", () =>
-    #   @wiping = false
-    # )
-    last = 0
-    @cloth.animate(
-      { height: 'toggle' },
-      {
-        duration: dur,
-        step: ( n, t ) =>
-          console.log "#{n-last}"
-          last = n
-          # console.log t
-        complete: () =>
-          @wiping = false
-      }
+    @cloth.slideToggle( dur, () =>
+      @wiping = false
     )
 
-  clear: () ->
-    #
-
   recall: () ->
-    # for each fresh card in the grave:
-    #   unfresh it
-    #   flip it
-    #   return it to the deck
-    # then, shuffle the deck
+    while @grave.length > 0
+      card = @grave.pop()
+      if card.fresh
+        console.log "GET FRESH"
+        card.fresh = false
+        @deck.push card
+    shuffle( @deck )
 
   is_done: () ->
-    return @deck.size is 0
+    return @deck.length is 0

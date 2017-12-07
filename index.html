@@ -4,43 +4,57 @@
         <meta charset="utf-8">
         <title>Drawn Fates</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <script type="text/javascript" src="./responsive.min.js"></script>
         <script type="text/javascript" src="./main.js"></script>
         <link rel="stylesheet" href="responsive.min.css">
         <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope|Shadows+Into+Light+Two|Waiting+for+the+Sunrise" rel="stylesheet">
     </head>
     <body>
         <div class="container">
             <div id="Header">
                 <div id="Draw" class="text-center">
-                    <a><img src="media/draw.png"></img></a>
+                    <img src="media/draw.png">
                 </div>
             </div>
-            <div id="Cloth" class="row">
-                <div class="slot col-xxs-4">
-                    <div class="card">
-                        <div class="text"></div>
-                        <img class="illu"></img>
+            <div id="Cloth" class="invisible row">
+                <div class="slot col-xxs-4 text-center">
+                    <div class="card"
+                         data-modal-target="#txt1"
+                         data-modal-grouped=".card"
+                         data-modal-fit-viewport="false">
+                        <div id="txt1" class="hidden text"></div>
+                        <!-- <img class="invisible" src="media/cards/moon.png"> -->
+                        <img class="illu" src="media/cards/moon.png">
                     </div>
                     <div class="profile text-center">
-                        <img class="name"></span>
+                        <img class="name" src="media/names/asher.png"></span>
                     </div>
                 </div>
-                <div class="slot col-xxs-4">
-                    <div class="card">
-                        <div class="text"></div>
-                        <img class="illu"></img>
+                <div class="slot col-xxs-4 text-center">
+                    <div class="card"
+                         data-modal-target="#txt2"
+                         data-modal-grouped=".card"
+                         data-modal-fit-viewport="false">
+                        <div id="txt2" class="hidden text"></div>
+                        <!-- <img class="invisible" src="media/cards/moon.png"> -->
+                        <img class="illu" src="media/cards/moon.png">
                     </div>
                     <div class="profile text-center">
-                        <img class="name"></span>
+                        <img class="name" src="media/names/asher.png"></span>
                     </div>
                 </div>
-                <div class="slot col-xxs-4">
-                    <div class="card">
-                        <div class="text"></div>
-                        <img class="illu"></img>
+                <div class="slot col-xxs-4 text-center">
+                    <div class="card"
+                         data-modal-target="#txt3" 
+                         data-modal-grouped=".card"
+                         data-modal-fit-viewport="false">
+                        <div id="txt3" class="hidden text"></div>
+                        <!-- <img class="invisible" src="media/cards/moon.png"> -->
+                        <img class="illu" src="media/cards/moon.png">
                     </div>
                     <div class="profile text-center">
-                        <img class="name"></span>
+                        <img class="name" src="media/names/asher.png"></span>
                     </div>
                 </div>
             </div>

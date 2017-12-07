@@ -15,13 +15,41 @@ class Card
   load: ( target ) ->
     if @reversed
       text = @text_rev
+      date = @date_rev
       target.find( ".illu" ).addClass( "reverse" )
     else
       text = @text_def
+      date = @date_def
       target.find( ".illu" ).removeClass( "reverse" )
 
+    text_div = target.find( ".text" )
+
+    sign = ""
+    switch @name
+      when "asher"
+        sign = "Asher"
+        text_div.removeClass( "gustave" )
+        text_div.removeClass( "cedrick" )
+        text_div.addClass( "asher" )
+      when "cedrick"
+        sign = "Cedrick"
+        text_div.removeClass( "asher" )
+        text_div.removeClass( "gustave" )
+        text_div.addClass( "cedrick" )
+      when "gustave"
+        sign = "Gus"
+        text_div.removeClass( "asher" )
+        text_div.removeClass( "cedrick" )
+        text_div.addClass( "gustave" )
+
+    text_div.html( "" )
+
+    text_div.append( "<p class=\"date\">#{date.toDateString()}</p>" )
+
     for p in text
-      target.find( ".text" ).append( "<p>#{p}</p>" )
+      text_div.append( "<p>#{p}</p>" )
+
+    text_div.append( "<p class=\"sign\">  -- #{sign}</p>" )
 
     target.find( ".illu" ).attr( "src", @img )
     target.find( ".name" ).attr( "src", "media/names/#{@name}.png" )
@@ -33,5 +61,5 @@ class Card
 
   kill: () ->
     if @fresh then @flip()
-    @fresh = false
+    console.log "KILL"
     return this
