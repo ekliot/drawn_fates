@@ -1,1 +1,7 @@
 #!/bin/bash
+./build
+cp *.html drawn_fates/
+cp *.js drawn_fates/
+cp *.css drawn_fates/
+cp media/ drawn_fates/ -r
+zip drawn_fates.zip drawn_fates/ -r
