@@ -6,21 +6,24 @@ class Cloth
     @done = false
 
   draw: () ->
+    # don't do repeat calls if already animating, or if the deck is exhausted
     if @wiping or @done
       return
 
+    # MAKE SURE THE SCREEN IS BLANK WHEN LOADING A NEW HAND
     unless @cloth.css( "display" ) is "none"
       @wipe()
 
+    # don't do anything while animating!
     while @wiping
       await sleep( 200 )
 
     # kill each card in @hand
     for slot in @hand
-      if slot.card? then @grave.push slot.card.kill()
+      # if the slot has a card, kill it
+      if slot.card? then @grave.push slot.card
+      # nullify
       slot.card = null
-
-    console.log @deck
 
     # if the deck is empty after purge, reshuffle the fresh corpses
     if @is_done() then @recall()
@@ -38,6 +41,7 @@ class Cloth
       date_b = if b.reversed then b.date_rev else b.date_def
       return date_a - date_b
     )
+    # shift the sorted cards into the hand
     slot.card = buffer.shift() for slot in @hand
 
     # render each card in @hand
@@ -54,10 +58,7 @@ class Cloth
   recall: () ->
     while @grave.length > 0
       card = @grave.pop()
-      if card.fresh
-        console.log "GET FRESH"
-        card.fresh = false
-        @deck.push card
+      @deck.push card.recall()
     shuffle( @deck )
 
   is_done: () ->

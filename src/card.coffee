@@ -24,6 +24,7 @@ class Card
 
     text_div = target.find( ".text" )
 
+    # text for the journal entry signature
     sign = ""
     switch @name
       when "asher"
@@ -44,22 +45,29 @@ class Card
 
     text_div.html( "" )
 
+    # TODO make a better date header!
     text_div.append( "<p class=\"date\">#{date.toDateString()}</p>" )
 
     for p in text
       text_div.append( "<p>#{p}</p>" )
 
+    # TODO make a better signature!
     text_div.append( "<p class=\"sign\">  -- #{sign}</p>" )
 
+    # set the card image src
     target.find( ".illu" ).attr( "src", @img )
+    # set the nameplate image src
     target.find( ".name" ).attr( "src", "media/names/#{@name}.png" )
 
+  # flip the card and return itself
   flip: () ->
     @reversed = !@reversed
-    console.log "FLIP"
     return this
 
-  kill: () ->
-    if @fresh then @flip()
-    console.log "KILL"
+  # this is called when the card is recalled from the graveyard
+  # if it's the card's first time being recalled, then it rots and is flipped
+  recall: () ->
+    if @fresh
+      @flip()
+      @fresh = false
     return this

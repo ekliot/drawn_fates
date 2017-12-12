@@ -1,8 +1,16 @@
+# a bit of something to allow x-referencing between files
 app = window.App = {}
 
+# ==============
+# HELPER METHODS
+# ==============
+
+# get an item from an array at a specific index
+# this will modify the array
 array_get = ( arr, idx ) ->
   arr.splice( idx, 1 )[0]
 
+# randomly shuffle an array
 shuffle = (a) ->
   i = a.length
   while --i > 0
@@ -12,12 +20,39 @@ shuffle = (a) ->
     a[i] = t
   a
 
+# sleep for specified # of ms
 sleep = ( ms ) ->
   new Promise ( resolve ) ->
     window.setTimeout resolve, ms
 
+# load the lexia as cards into the deck
 load_deck = () ->
   deck = []
+
+  # ==================================================================================================
+  # SAMPLE CARD FORMAT
+  #     *_def refers to the "right side up" (default) orientation
+  #     *_rev refers to the reversed orientation
+  # please copy what's below here and uncomment to add a card to a character
+  # pro-tip: hyphens, apostrophes, and quotation marks copied from google docs use a special character
+  #          for consistent accessibility, if your lexia includes these characters,
+  #          highlight them and replace-all with the following (as appropriate): " ' -
+  # ==================================================================================================
+  # { # ACT X || Replace X with the act number for this card
+  #   img: "media/cards/CARD.png" # replace "CARD" with the name of the card illustration to use
+  #   date_def: new Date( 1969, 6, 9, 16, 20 ) # the order goes: year, month (0-indexed), day, hour (24h), minute
+  #   text_def: [     # This is an array of paragraphs, each string gets presented as an individual <p> element
+  #     "<b>MUST<b>", # you can include html elements in here and they will appear as expected
+  #     "NOT",
+  #     "SLEEP"       # make sure all your array elements end in a comma, except for the last
+  #   ]
+  #   date_rev: new Date( 1969, 6, 9, 16, 20 )
+  #   text_rev: [
+  #     "MUST",
+  #     "WARN",
+  #     "OTHERS"
+  #   ]
+  # } # don't forget a comma here if it isn't the last object of the array
 
   cards_asher = [
     { # ACT 1
@@ -171,46 +206,59 @@ load_deck = () ->
     },
   ]
 
+  # load in asher's cards
   for card in cards_asher
     card.name = "asher"
     deck.push( new Card card )
 
+  # load in cedrick's cards
   for card in cards_cedrick
     card.name = "cedrick"
     deck.push( new Card card )
 
+  # load in gustave's cards
   for card in cards_gustave
     card.name = "gustave"
     deck.push( new Card card )
 
-  console.log "deck before shuffle:"
-  console.log deck
-
+  # tracking variables
   flipped = 0
   to_flip = deck.length // 2
+  # only need to flip half
   while flipped < to_flip
+    # because flipped cards get pushed to the end of the array, only select
+    # cards for flipping from before that buffer zone
     sample_size = deck.length - flipped
+    # get a card from a random index within the sample size
     sample = array_get( deck, Math.floor(Math.random()*sample_size) )
+    # add the card to the end of the deck, flipped
     deck.push( sample.flip() )
     ++flipped
 
+  # shuffle the half-flipped deck
   deck = shuffle( deck )
-
-  console.log "deck after shuffle:"
-  console.log deck
 
   return deck
 
 window.onload = ->
+  # enable the modal elements for journal entries
+  # http://responsivebp.com/javascript/modal/#methods
   $(".card").modal({
+    # these options don't seem to work, but they're here anyways
     group: ".card"
     fitViewport: false
   })
 
+  # initialize a new Cloth object with the deck
   app.cloth = new Cloth $( "#Cloth" ), load_deck()
+  # do an initial insta-wipe to get rid of the weird animation bug on the first wipe
   app.cloth.wipe( 0 )
 
+  # bind the draw method to the draw button
   $( "#Draw" ).on( 'click', () ->
+    # the cloth starts off invisible so it can be initially rendered with images
+    # this is so that the jQuery animation knows how big the div should be
+    # the invisibility class is removed upon the first interaction with the app
     $( "#Cloth" ).removeClass( "invisible" )
     app.cloth.draw()
   )
