@@ -1,4 +1,7 @@
 class Card
+  days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
   constructor: ( card_opt ) ->
     @reversed = false # whether the card should be displayed reversed
     @fresh    = true  # whether the card has been shown before
@@ -46,13 +49,13 @@ class Card
     text_div.html( "" )
 
     # TODO make a better date header!
-    text_div.append( "<p class=\"date\">#{date.toDateString()}</p>" )
+    text_div.append( "<h3 class=\"date\">#{days[date.getDay()]}, #{months[date.getMonth()]} #{date.getDate()} #{date.getFullYear()}</h3>" )
 
     for p in text
       text_div.append( "<p>#{p}</p>" )
 
     # TODO make a better signature!
-    text_div.append( "<p class=\"sign\">  -- #{sign}</p>" )
+    text_div.append( "<p class=\"sign\">~ <i>#{sign}</i></p>" )
 
     # set the card image src
     target.find( ".illu" ).attr( "src", @img )

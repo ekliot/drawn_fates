@@ -58,7 +58,7 @@ class Cloth
   recall: () ->
     while @grave.length > 0
       card = @grave.pop()
-      @deck.push card.recall()
+      if card.fresh then @deck.push card.recall()
     shuffle( @deck )
 
   is_done: () ->

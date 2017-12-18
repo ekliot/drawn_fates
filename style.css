@@ -1,6 +1,6 @@
 body {
   background-image: url(media/lined_paper_texture.jpg);
-  font-size: 20pt;
+  font-size: 16pt;
   font-family: helvetica;
 }
 
@@ -28,19 +28,32 @@ body {
   border: 2px double black;
 }
 
-/*.card > img {
-  width: 100%;
-  height: 100%;
-}*/
-
 .card:hover {
   cursor: pointer;
   transform: rotate( 1deg );
 }
 
 .modal-content {
-  background-color: rgb(231, 207, 136);
+  background-color: rgb(232, 218, 176);
+  padding: 1.5em;
+}
+
+div.modal {
+  max-width: 55%;
+}
+
+.text > h3 {
+  font-size: 18pt;
+}
+
+.text > p.sign {
+  font-weight: bold;
+  text-indent: 0em;
+}
+
+.text > p {
   font-weight: 500;
+  text-indent: 2em;
 }
 
 .name {
@@ -54,11 +67,6 @@ body {
   font-weight: bold;
 }
 
-.sign {
-  /*font-family: cursive;*/
-  font-weight: bold;
-}
-
 .reverse {
   -webkit-transform: scaleY(-1);
      -moz-transform: scaleY(-1);
@@ -69,15 +77,15 @@ body {
 .asher {
   /*font-family: 'Waiting for the Sunrise', cursive;*/
   /*font-family: 'Annie Use Your Telescope', cursive;*/
-  font-family: 'Shadows Into Light Two', cursive;
+  /*font-family: 'Shadows Into Light Two', cursive;*/
 }
 
 .cedrick {
   /*font-family: 'Annie Use Your Telescope', cursive;*/
-  font-family: 'Shadows Into Light Two', cursive;
+  /*font-family: 'Shadows Into Light Two', cursive;*/
 }
 
 .gustave {
   /*font-family: 'Annie Use Your Telescope', cursive;*/
-  font-family: 'Shadows Into Light Two', cursive;
+  /*font-family: 'Shadows Into Light Two', cursive;*/
 }
